@@ -20,14 +20,14 @@ import { signIn } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 
 function page() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      indentifier: "",
+      identifier: "",
       password: "",
     },
   });
@@ -35,7 +35,7 @@ function page() {
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     const response = await signIn("credentials", {
       redirect: false,
-      indentifier: data.indentifier,
+      identifier: data.identifier,
       password: data.password,
     });
     console.log(response);
@@ -49,7 +49,7 @@ function page() {
     }
 
     if (response?.url) {
-      router.replace(`/dashboard`);
+      router.replace(`/`);
     }
   };
 
@@ -65,7 +65,7 @@ function page() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="indentifier"
+                name="identifier"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email/Username</FormLabel>
@@ -89,15 +89,16 @@ function page() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
+              <Button type="submit">
+                {/* {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Please wait
                   </>
                 ) : (
                   "Signin"
-                )}
+                )} */}
+                Signin
               </Button>
             </form>
           </Form>
