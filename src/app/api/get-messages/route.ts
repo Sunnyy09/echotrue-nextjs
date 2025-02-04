@@ -29,21 +29,22 @@ export async function GET(request: Request) {
     const user = await UserModel.aggregate([
       {
         $match: {
-          id: userId,
+          _id: userId,
         },
       },
       {
-        $unwind: "$messages",
+        $unwind: { path: "$messages", preserveNullAndEmptyArrays: true },
+        // Since your messages field is [], MongoDB filters out the user, causing the "User not found" error. To solve this, Use $unwind with preserveNullAndEmptyArrays: true
       },
       {
         $sort: {
-          "$messages.createdAt": -1,
+          "messages.createdAt": -1,
         },
       },
       {
         $group: {
           _id: "$_id",
-          $messages: {
+          messages: {
             $push: "$messages",
           },
         },
@@ -72,7 +73,7 @@ export async function GET(request: Request) {
       }
     );
   } catch (error) {
-    console.error("");
+    console.error("Error fetching user messages:", error);
     return NextResponse.json(
       {
         success: false,

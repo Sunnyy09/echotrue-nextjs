@@ -57,6 +57,8 @@ function Page() {
       try {
         const response = await axios.get<ApiResponse>(`/api/get-messages`);
         setMessages(response.data.messages || []);
+        console.log(response);
+
         if (refresh) {
           toast({
             title: "Refreshed messages",
@@ -114,7 +116,8 @@ function Page() {
     setMessages(messages.filter((message) => message._id !== messageId));
   };
 
-  const username = session?.user as User;
+  const user = session?.user as User;
+  const username = user?.username;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
 
