@@ -94,7 +94,7 @@ function page() {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1>Join Mystery Message</h1>
+          <h1>Join Echo True</h1>
           <p>Sign up to start your anonymous adventures</p>
         </div>
         <div>
