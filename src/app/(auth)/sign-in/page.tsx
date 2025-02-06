@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { Loader2 } from "lucide-react";
 
 function page() {
@@ -49,7 +50,7 @@ function page() {
     }
 
     if (response?.url) {
-      router.replace(`/`);
+      router.replace(`/dashboard`);
     }
   };
 
@@ -89,19 +90,20 @@ function page() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">
-                {/* {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Please wait
-                  </>
-                ) : (
-                  "Signin"
-                )} */}
-                Signin
-              </Button>
+              <Button type="submit">Signin</Button>
             </form>
           </Form>
+          <div className="text-center mt-4">
+            <p>
+              Not a member yet?{" "}
+              <Link
+                href="/sign-up"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

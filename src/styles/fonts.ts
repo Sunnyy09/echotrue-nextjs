@@ -5,6 +5,9 @@ import {
   Open_Sans,
   Pacifico,
   Noto_Serif,
+  Roboto,
+  Lora,
+  Kanit,
 } from "next/font/google";
 
 export const geistSans = Geist({
@@ -39,4 +42,22 @@ export const notoSerif = Noto_Serif({
   weight: ["100", "300", "400", "700", "900"],
   subsets: ["latin"],
   variable: "--font-noto-serif",
+});
+
+export const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],
+  variable: "--font-roboto",
+});
+
+export const lora = Lora({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-lora",
+});
+
+export const kanit = Kanit({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-kaint",
 });

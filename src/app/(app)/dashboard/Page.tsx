@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/app/MessageCard";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -23,14 +24,14 @@ function Page() {
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   const { toast } = useToast();
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof acceptMessageSchema>>({
     resolver: zodResolver(acceptMessageSchema),
   });
 
   const { register, watch, setValue } = form;
-
   const acceptMessages = watch("acceptMessages");
 
   const fetchAcceptMessages = useCallback(async () => {
@@ -81,13 +82,16 @@ function Page() {
   );
 
   useEffect(() => {
+    // console.log("Session status:", status);
+    // console.log("Session data:", session);
+    if (status === "loading") return;
     if (!session || !session.user) {
-      return;
+      router.replace("/sign-in");
     }
 
     fetchMessages();
     fetchAcceptMessages();
-  }, [session, setValue, fetchMessages, fetchAcceptMessages]);
+  }, [status, router, session, setValue, fetchMessages, fetchAcceptMessages]);
 
   // handle switch change for messages
   const handleSwitchChange = async () => {
@@ -130,15 +134,21 @@ function Page() {
     // another method using with ref hook
   };
 
+  if (status === "loading") {
+    return <div className="text-4xl text-center mt-12">Loading...</div>;
+  }
+
   if (!session || !session.user) {
-    return <div className="text-4xl">Please login</div>;
+    return <div className="text-4xl text-center mt-12">Please login</div>;
   }
 
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+      <h1 className="text-4xl font-bold mb-4 font-roboto">User Dashboard</h1>
       <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
+        <h2 className="text-lg font-semibold mb-2 font-lora">
+          Copy Your Unique Link
+        </h2>
         <div className="flex items-center">
           <input
             type="text"

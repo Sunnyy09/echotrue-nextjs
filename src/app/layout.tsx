@@ -10,6 +10,9 @@ import {
   openSans,
   pacifico,
   notoSerif,
+  roboto,
+  lora,
+  kanit,
 } from "@/styles/fonts";
 
 // const geistSans = Geist({
@@ -36,7 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${openSans.variable} ${pacifico.variable} ${notoSerif.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${openSans.variable} ${pacifico.variable} ${notoSerif.variable} ${roboto.variable} ${lora.variable} ${kanit.variable} antialiased`}
         >
           {children}
           <Toaster />
