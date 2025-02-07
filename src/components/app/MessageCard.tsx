@@ -24,6 +24,7 @@ import { Message } from "@/model/User";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+import dayjs from "dayjs";
 
 type MessageCardProps = {
   message: Message;
@@ -48,35 +49,42 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive" className="w-5 h-6">
-              <MessageSquareOff />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                message and remove your data from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteConfirm}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-        <CardDescription>Card Description</CardDescription>
+        <div className="flex justify-between items-center">
+          <CardTitle className="leading-tight">{message.content}</CardTitle>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                className="w-5 h-6 self-start mt-2 ml-2"
+              >
+                <MessageSquareOff />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your message and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDeleteConfirm}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          {/* <CardDescription>Card Description</CardDescription> */}
+        </div>
+        <div className="text-sm pt-1">
+          {dayjs(message.createdAt).format("MMMM D, YYYY h:mm A")}
+        </div>
       </CardHeader>
-
-      <CardFooter>
+      {/* <CardFooter>
         <p>Card Footer</p>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }
