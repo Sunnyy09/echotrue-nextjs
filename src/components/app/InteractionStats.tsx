@@ -31,7 +31,7 @@ const InteractionStats = () => {
   }, []);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-w-5xl mx-auto mt-10">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-5xl mx-auto mt-10">
       <h2 className="text-2xl font-openSans font-bold mb-6 text-center">
         Interaction Statistics
       </h2>

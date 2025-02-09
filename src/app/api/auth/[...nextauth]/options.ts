@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
       id: "credentials",
       name: "Credentials",
       credentials: {
-        indentifier: {
+        identifier: {
           label: "Email or Username",
           type: "text",
         },
@@ -77,5 +77,5 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET_KEY,
+  secret: process.env.NEXTAUTH_SECRET,
 };

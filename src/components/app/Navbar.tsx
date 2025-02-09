@@ -1,17 +1,38 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
+import { Loader2, LogOut } from "lucide-react";
 
 function Navbar() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { data: session } = useSession();
   const user: User = session?.user as User;
   const pathname = usePathname(); // get the current path
 
   const isDashboard = pathname === "/dashboard";
+
+  const handleSignOut = async () => {
+    setIsSubmitting(true);
+    try {
+      // Simulate a delay to show loading state (optional)
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // await signOut()
+      // or
+      await signOut({
+        callbackUrl: "/",
+        redirect: true,
+      });
+    } catch (error) {
+      console.error("Sign out failed", error);
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <header className="w-full md:px-8 px-1 shadow-md">
@@ -39,9 +60,20 @@ function Navbar() {
               </div>
               <Button
                 className="w-full text-lg font-semibold md:w-auto hover:bg-black/75 sm:block hidden"
-                onClick={() => signOut()}
+                onClick={handleSignOut}
+                disabled={isSubmitting}
               >
-                Logout
+                {isSubmitting ? (
+                  <>
+                    <span className="text-sm flex">
+                      {" "}
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      wait...
+                    </span>
+                  </>
+                ) : (
+                  <LogOut size={48} strokeWidth={2.25} />
+                )}
               </Button>
             </div>
           ) : (

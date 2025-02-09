@@ -21,7 +21,7 @@ import Link from "next/link";
 import { Loader2 } from "lucide-react";
 
 function page() {
-  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -34,23 +34,33 @@ function page() {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    const response = await signIn("credentials", {
-      redirect: false,
-      identifier: data.identifier,
-      password: data.password,
-    });
-    console.log(response);
+    setIsSubmitting(true);
+    try {
+      const response = await signIn("credentials", {
+        redirect: false,
+        identifier: data.identifier,
+        password: data.password,
+      });
+      console.log(response);
 
-    if (response?.error) {
+      if (response?.error) {
+        toast({
+          title: "Login falied",
+          description: "Incorrect username or password",
+          variant: "destructive",
+        });
+      }
+
+      if (response?.url) {
+        router.replace(`/dashboard`);
+      }
+    } catch (error) {
+      console.error("Error in login of user", error);
       toast({
-        title: "Login falied",
-        description: "Incorrect username or password",
+        title: "Signup failed",
+        description: "Error during the login of user",
         variant: "destructive",
       });
-    }
-
-    if (response?.url) {
-      router.replace(`/dashboard`);
     }
   };
 
@@ -90,7 +100,16 @@ function page() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Signin</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing
+                    in...{" "}
+                  </>
+                ) : (
+                  "Sign in"
+                )}
+              </Button>
             </form>
           </Form>
           <div className="text-center mt-4">
