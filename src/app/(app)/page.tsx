@@ -14,7 +14,7 @@ import FeedbackSection from "@/components/app/FeedbackSection";
 import About from "@/components/app/About";
 import InteractionStats from "@/components/app/InteractionStats";
 
-function page() {
+function Page() {
   return (
     <>
       <main className="flex-grow flex flex-col items-center justify-center  py-12">
@@ -77,4 +77,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

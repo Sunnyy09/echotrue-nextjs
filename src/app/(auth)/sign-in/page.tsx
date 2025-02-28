@@ -20,7 +20,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 
-function page() {
+function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -129,4 +129,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

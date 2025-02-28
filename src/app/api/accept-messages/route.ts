@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
@@ -117,7 +117,7 @@ export async function GET(request: Request) {
       }
     );
   } catch (error) {
-    console.error("Error in getting message acceptance status");
+    console.error("Error in getting message acceptance status", error);
     return NextResponse.json(
       {
         success: false,
