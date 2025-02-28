@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const prompt =
       "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'.";

@@ -1,12 +1,11 @@
-import { z } from "zod";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { verifySchema } from "@/Schemas/verifySchema";
+// import { verifySchema } from "@/Schemas/verifySchema";
 import { NextResponse } from "next/server";
 
-const verifyCodeSchema = z.object({
-  verifyCode: verifySchema,
-});
+// const verifyCodeSchema = z.object({
+//   verifyCode: verifySchema,
+// });
 
 export async function POST(request: Request) {
   await dbConnect();
