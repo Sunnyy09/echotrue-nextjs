@@ -1,12 +1,20 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import mongoose from "mongoose";
 
-interface Credentials {
-  identifier: string;
-  password: string;
+// interface Credentials {
+//   identifier: string;
+//   password: string;
+// }
+
+interface AuthUser extends User {
+  _id: string;
+  isVerified: boolean;
+  username: string;
+  isAcceptingMessages: boolean;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -23,7 +31,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(
         credentials: Record<"identifier" | "password", string> | undefined
-      ): Promise<any> {
+      ): Promise<AuthUser | null> {
         if (!credentials) {
           throw new Error("Missing credentials");
         }
@@ -51,13 +59,25 @@ export const authOptions: NextAuthOptions = {
             user.password
           );
 
-          if (isPasswordCorrect) {
-            return user;
-          } else {
+          if (!isPasswordCorrect) {
             throw new Error("Incorrect Password");
           }
-        } catch (err: any) {
-          throw new Error(err);
+
+          const userObject = user.toObject() as User & {
+            _id: mongoose.Types.ObjectId;
+          };
+
+          return {
+            _id: userObject._id.toString() ?? "",
+            isVerified: userObject.isVerified,
+            username: userObject.username,
+            isAcceptingMessages: userObject.isAcceptingMessages ?? false,
+          } as AuthUser;
+        } catch (err) {
+          if (err instanceof Error) {
+            throw new Error(err.message);
+          }
+          throw new Error("An unknown error occurred");
         }
       },
     }),
