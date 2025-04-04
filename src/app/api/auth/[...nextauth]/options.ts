@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
+interface Credentials {
+  identifier: string;
+  password: string;
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -16,7 +21,13 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: any): Promise<any> {
+      async authorize(
+        credentials: Record<"identifier" | "password", string> | undefined
+      ): Promise<any> {
+        if (!credentials) {
+          throw new Error("Missing credentials");
+        }
+
         await dbConnect();
 
         try {
