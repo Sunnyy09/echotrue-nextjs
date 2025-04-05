@@ -6,7 +6,7 @@ import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { messageid: string } }
+  context: { params: { messageid: string } }
 ) {
   await dbConnect();
 
@@ -18,11 +18,13 @@ export async function DELETE(
     );
   }
 
+  const { messageid } = context.params;
+
   try {
     const userId = session.user._id;
     const updatedResult = await UserModel.updateOne(
       { _id: userId },
-      { $pull: { messages: { _id: params.messageid } } }
+      { $pull: { messages: { _id: messageid } } }
     );
 
     if (updatedResult.modifiedCount === 0) {

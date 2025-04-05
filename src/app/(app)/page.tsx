@@ -54,7 +54,7 @@ function Page() {
             <CarouselNext />
           </Carousel>
         </section>
-        <section className="w-full mx-auto mb-6 py-6 sm:px-6 lg:px-8">
+        <section className="w-full min-h-[70vh] mx-auto mb-6 py-6 sm:px-6 lg:px-8 bg-[#F5F5F5] border-b-2">
           <About />
         </section>
         <section className="w-full mx-auto mb-6 py-6 sm:px-6 lg:px-8">
