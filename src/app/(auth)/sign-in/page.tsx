@@ -65,8 +65,8 @@ function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 sm:mx-0 mx-4">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md sm:mx-0 mx-4">
         <div className="text-center">
           <h1 className="font-bold text-3xl pb-1">Join Echo-True</h1>
           <p>Sign In to start your anonymous adventures</p>
