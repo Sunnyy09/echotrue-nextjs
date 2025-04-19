@@ -38,7 +38,7 @@ function Navbar() {
     <header className="w-full md:px-8 px-1 shadow-md">
       <nav className="p-4 md:p-6">
         <div className="container mx-auto flex md:flex-row justify-between items-center">
-          <Link href="/" className="text-xl font-bold mb-4 md:mb-0">
+          <Link href="/" className="text-xl font-bold">
             <span className="font-pacifico text-3xl md:ml-8 ml-2">
               Echo True
             </span>
@@ -59,7 +59,7 @@ function Navbar() {
                 )}
               </div>
               <Button
-                className="w-full text-lg font-semibold md:w-auto hover:bg-black/75 sm:block hidden"
+                className="w-full text-lg font-semibold w-auto hover:bg-black/75"
                 onClick={handleSignOut}
                 disabled={isSubmitting}
               >

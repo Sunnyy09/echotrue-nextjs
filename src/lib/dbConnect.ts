@@ -15,7 +15,8 @@ async function dbConnect(): Promise<void> {
 
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI || "", {
-      serverSelectionTimeoutMS: 30000,
+      tls: true,
+      tlsAllowInvalidCertificates: false,
     });
 
     connection.isConnected = db.connections[0].readyState;
