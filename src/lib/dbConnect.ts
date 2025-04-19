@@ -14,8 +14,9 @@ async function dbConnect(): Promise<void> {
   }
 
   try {
-    const db = await mongoose.connect(process.env.MONGODB_URI || "");
-    // console.log(db);
+    const db = await mongoose.connect(process.env.MONGODB_URI || "", {
+      serverSelectionTimeoutMS: 30000,
+    });
 
     connection.isConnected = db.connections[0].readyState;
     // console.log(db.connection);
@@ -23,7 +24,9 @@ async function dbConnect(): Promise<void> {
     console.log(`DB connected successfully`);
   } catch (error) {
     console.log(`DB connection failed`, error);
+    // throw new Error("Database connection failed");
     process.exit(1);
+    /*Using process.exit(1) is fine in CLI scripts, but in a serverless or Next.js environment (like API routes), it can cause the entire serverless function to crash.*/
   }
 }
 

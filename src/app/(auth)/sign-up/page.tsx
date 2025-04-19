@@ -90,15 +90,18 @@ function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 sm:mx-0 mx-4">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1>Join Echo True</h1>
+          <h1 className="font-bold text-3xl pb-1">Join Echo-True</h1>
           <p>Sign up to start your anonymous adventures</p>
         </div>
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4 flex flex-col"
+            >
               <FormField
                 name="username"
                 control={form.control}
@@ -172,7 +175,7 @@ function Page() {
               Already a member?{" "}
               <Link
                 href="/sign-in"
-                className="text-blue-600 hover:text-blue-800"
+                className="text-blue-700 hover:text-blue-900 hover:underline"
               >
                 Sign in
               </Link>
